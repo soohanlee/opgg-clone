@@ -1,0 +1,95 @@
+{
+  "gameId": "123",
+  "teams": [
+    {
+      "teamId": 1,
+      "players": [
+        {
+          "champion": {
+            "imageUrl": "https://opgg-static.akamaized.net/images/lol/champion/Qiyana.png",
+            "level": 3
+          },
+          "summonerId": "2018608",
+          "summonerName": "일단존버할게요"
+        },
+        {
+          "champion": {
+            "imageUrl": "https://opgg-static.akamaized.net/images/lol/champion/Qiyana.png",
+            "level": 3
+          },
+          "summonerId": "2968401",
+          "summonerName": "feng ji xu chui"
+        },
+        {
+          "champion": {
+            "imageUrl": "https://opgg-static.akamaized.net/images/lol/champion/Qiyana.png",
+            "level": 3
+          },
+          "summonerId": "1697613",
+          "summonerName": "UijU"
+        },
+        {
+          "champion": {
+            "imageUrl": "https://opgg-static.akamaized.net/images/lol/champion/Malzahar.png",
+            "level": 6
+          },
+          "summonerId": "2937100",
+          "summonerName": "krats aira"
+        },
+        {
+          "champion": {
+            "imageUrl": "https://opgg-static.akamaized.net/images/lol/champion/Qiyana.png",
+            "level": 3
+          },
+          "summonerId": "2996577",
+          "summonerName": "krats aira"
+        }
+      ]
+    },
+    {
+      "teamId": 2,
+      "players": [
+        {
+          "champion": {
+            "imageUrl": "https://opgg-static.akamaized.net/images/lol/champion/Anivia.png",
+            "level": 31
+          },
+          "summonerId": "1498884",
+          "summonerName": "mogubaby"
+        },
+        {
+          "champion": {
+            "imageUrl": "https://opgg-static.akamaized.net/images/lol/champion/Viktor.png",
+            "level": 11
+          },
+          "summonerId": "2685159",
+          "summonerName": "lIIIllIlIIlIlIll"
+        },
+        {
+          "champion": {
+            "imageUrl": "https://opgg-static.akamaized.net/images/lol/champion/Jayce.png",
+            "level": 12
+          },
+          "summonerId": "3388220",
+          "summonerName": "knightzz"
+        },
+        {
+          "champion": {
+            "imageUrl": "https://opgg-static.akamaized.net/images/lol/champion/Jayce.png",
+            "level": 12
+          },
+          "summonerId": "1486797",
+          "summonerName": "KZ Quad"
+        },
+        {
+          "champion": {
+            "imageUrl": "https://opgg-static.akamaized.net/images/lol/champion/Viktor.png",
+            "level": 11
+          },
+          "summonerId": "1602130",
+          "summonerName": "zwhy"
+        }
+      ]
+    }
+  ]
+}
