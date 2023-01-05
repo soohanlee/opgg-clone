@@ -1,11 +1,14 @@
-import React from "react";
-import { GlobalStyle } from "./global-style";
+import React, { Suspense } from "react";
+import { Outlet } from "react-router-dom";
+import Header from "@app/components/header";
 
 function App() {
   return (
     <div className="App">
-      <GlobalStyle />
-      op.gg
+      <Header />
+      <Suspense fallback={"로딩"}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 }

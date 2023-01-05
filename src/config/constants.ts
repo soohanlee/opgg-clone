@@ -1,15 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
 
-const colors = {
-  primary: "#ff0000",
-};
-
-export const theme = {
-  primaryColor: "#ff0000",
-  secondaryColor: "#00ff00",
-  fontFamily: "Arial, sans-serif",
-};
-
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
