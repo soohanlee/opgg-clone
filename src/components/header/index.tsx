@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Header = () => {
   const [input, setInput] = React.useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleSearchSummoner();
+    }
+  };
+
+  const handleSearchSummoner = () => {
+    navigate(`/summoners/${input}`);
   };
 
   return (
@@ -15,11 +29,13 @@ const Header = () => {
       <Nav>
         <InputContainer>
           <Input
+            onKeyDown={handleKeyDown}
+            ref={inputRef}
             placeholder={t("header.placeholder") || ""}
             value={input}
             onChange={handleChange}
           />
-          <Button>.GG</Button>
+          <Button onClick={handleSearchSummoner}>.GG</Button>
         </InputContainer>
       </Nav>
     </Container>

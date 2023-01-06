@@ -12,6 +12,7 @@ import App from "./App";
 import ErrorPage from "@app/components/ErrorComponent";
 import Summoners from "@app/pages/summoners";
 import { GlobalStyle } from "@app/styles/Global";
+import { useSummonerLoader } from "./hooks/queries/useSummoner";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,8 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
           {
-            path: "summoners/:name",
+            path: "summoners/:summonerName",
+            loader: useSummonerLoader,
             element: <Summoners />,
           },
         ],

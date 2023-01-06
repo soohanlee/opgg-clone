@@ -163,3 +163,7 @@ export type MatchesDTO = {
   positions: Position[];
   summary: Summary;
 };
+
+export interface Params {
+  summonerName: string;
+}

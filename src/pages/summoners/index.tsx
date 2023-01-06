@@ -1,4 +1,6 @@
+import { SummonerDTO } from "@app/apis/types";
 import React from "react";
+import { useLoaderData } from "react-router-dom";
 import styled from "styled-components";
 import ChampionWinRate from "./ChampionWinRate";
 import ContentHeader from "./ContentHeader";
@@ -7,6 +9,10 @@ import Matchs from "./Matchs";
 import SoloRank from "./SoloRank";
 
 const Summoners = () => {
+  const summonerData = useLoaderData() as SummonerDTO;
+
+  console.log(summonerData);
+
   return (
     <Container>
       <ContentHeader />

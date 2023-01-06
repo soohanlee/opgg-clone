@@ -21,3 +21,12 @@ export const WIN_RATE_COLOR = "#c6443e";
 
 export const RATING_THRESHOLD = "6.0";
 export const RATING_COLOR = "#e19205";
+
+export const testSummonerName = "일단존버할게요";
+export const testGameId = "123";
+
+export const queryKeys = Object.freeze({
+  summoner: "summoner",
+  detail: "detail",
+  mostInfo: "mostInfo",
+});
