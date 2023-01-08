@@ -10,18 +10,6 @@ export const queryClient = new QueryClient({
   },
 });
 
-export const KDA_THRESHOLDS = {
-  "3.00": "#2daf7f",
-  "4.00": "#1f8ecd",
-  "5.00": "#e19205",
-};
-
-export const WIN_RATE_THRESHOLD = "60%";
-export const WIN_RATE_COLOR = "#c6443e";
-
-export const RATING_THRESHOLD = "6.0";
-export const RATING_COLOR = "#e19205";
-
 export const testSummonerName = "일단존버할게요";
 export const testGameId = "123";
 
@@ -29,4 +17,5 @@ export const queryKeys = Object.freeze({
   summoner: "summoner",
   detail: "detail",
   mostInfo: "mostInfo",
+  matches: "matches",
 });

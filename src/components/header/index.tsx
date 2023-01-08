@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -10,9 +10,12 @@ const Header = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(event.target.value);
-  };
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setInput(event.target.value);
+    },
+    []
+  );
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -21,6 +24,8 @@ const Header = () => {
   };
 
   const handleSearchSummoner = () => {
+    if (!input) return;
+    setInput("");
     navigate(`/summoners/${input}`);
   };
 
@@ -80,6 +85,6 @@ const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fontSizes.xl};
   border: 0;
-  color: ${({ theme }) => theme.colors.skyblue};
+  color: ${({ theme }) => theme.colors.brightBlue};
   font-weight: 900;
 `;

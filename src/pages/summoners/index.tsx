@@ -1,26 +1,31 @@
 import { SummonerDTO } from "@app/apis/types";
-import React from "react";
+import { ErrorBoundary } from "@app/components/ErrorBoundary";
+import { Suspense } from "react";
 import { useLoaderData } from "react-router-dom";
 import styled from "styled-components";
 import ChampionWinRate from "./ChampionWinRate";
 import ContentHeader from "./ContentHeader";
-import FreeRank from "./FreeRank";
 import Matchs from "./Matchs";
-import SoloRank from "./SoloRank";
+import Rank from "./Rank";
 
 const Summoners = () => {
-  const summonerData = useLoaderData() as SummonerDTO;
-
-  console.log(summonerData);
+  const { summoner } = useLoaderData() as SummonerDTO;
 
   return (
     <Container>
-      <ContentHeader />
+      <ContentHeader summoner={summoner} />
       <InnerContainer>
         <LeftContainer>
-          <SoloRank />
-          <FreeRank />
-          <ChampionWinRate />
+          <ErrorBoundary>
+            <Suspense fallback={"로딩중"}>
+              <Rank />
+            </Suspense>
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={"로딩중"}>
+              <ChampionWinRate />
+            </Suspense>
+          </ErrorBoundary>
         </LeftContainer>
         <RightContainer>
           <Matchs />
@@ -33,7 +38,8 @@ const Summoners = () => {
 export default Summoners;
 
 const Container = styled.div`
-  background: ${({ theme }) => theme.colors.background};
+  background: ${({ theme }) => theme.colors.paleGray};
+  padding-bottom: 40rem;
 `;
 
 const InnerContainer = styled.div`

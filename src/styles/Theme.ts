@@ -1,12 +1,17 @@
 export const theme = Object.freeze({
   colors: {
     white: "#fff",
-    blue: "#1f8ecd",
-    skyblue: "#1ea1f7",
-    background: "#eaeaea",
-    border: "#d8d8d8",
-    lightGrey: "#f2f2f2",
-    grey: "#ededed",
+    skyblue: "#1f8ecd",
+    brightBlue: "#1ea1f7",
+    paleGray: "#eaeaea",
+    silver: "#cdd2d2",
+    offWhite: "#f2f2f2",
+    lightestGray: "#ededed",
+    lightGray: "#879292",
+    darkGray: "#5e5e5e",
+    emerald: "#2daf7f",
+    golden: "#e19205",
+    brightRed: "#ee5a52",
   },
   fonts: {
     fontFamily: "opgg",

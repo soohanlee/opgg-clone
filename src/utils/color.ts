@@ -1,4 +1,16 @@
-import { KDA_THRESHOLDS } from "@app/config/constants";
+import { theme } from "@app/styles/Theme";
+
+const KDA_THRESHOLDS = {
+  "3.00": "#2daf7f",
+  "4.00": "#1f8ecd",
+  "5.00": "#e19205",
+};
+
+const WIN_RATE_THRESHOLD = 60;
+const WIN_RATE_COLOR = "#c6443e";
+
+const RATING_THRESHOLD = 6;
+const RATING_COLOR = "#e19205";
 
 export const getStatColor = (
   stat: number,
@@ -8,11 +20,20 @@ export const getStatColor = (
   return stat >= threshold ? color : "";
 };
 
-export const getKdaColor = (kda: number) => {
-  for (const [kdaThreshold, color] of Object.entries(KDA_THRESHOLDS)) {
-    if (kda >= parseFloat(kdaThreshold)) {
-      return color;
-    }
+export const getWinRateColor = (kda: number): string => {
+  if (kda >= WIN_RATE_THRESHOLD) {
+    return WIN_RATE_COLOR;
   }
-  return "";
+  return "#5e5e5e";
+};
+
+export const getColorFromRatio = (ratio: number) => {
+  if (ratio >= 5.0) {
+    return theme.colors.golden;
+  } else if (ratio >= 4.0) {
+    return theme.colors.skyblue;
+  } else if (ratio >= 3.0) {
+    return theme.colors.emerald;
+  }
+  return theme.colors.darkGray;
 };

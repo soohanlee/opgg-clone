@@ -12,7 +12,8 @@ import App from "./App";
 import ErrorPage from "@app/components/ErrorComponent";
 import Summoners from "@app/pages/summoners";
 import { GlobalStyle } from "@app/styles/Global";
-import { useSummonerLoader } from "./hooks/queries/useSummoner";
+import { useSummonerLoader } from "@app/hooks/queries/useLoader";
+import NotFoundComponent from "./components/NotFoundComponent";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        errorElement: <ErrorPage />,
+        errorElement: <NotFoundComponent />,
         children: [
           {
             path: "summoners/:summonerName",
@@ -39,16 +40,14 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <I18nextProvider i18n={i18n}>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <RouterProvider router={router} />
-        </ThemeProvider>
-      </QueryClientProvider>
-    </I18nextProvider>
-  </React.StrictMode>
+  <I18nextProvider i18n={i18n}>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </QueryClientProvider>
+  </I18nextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
