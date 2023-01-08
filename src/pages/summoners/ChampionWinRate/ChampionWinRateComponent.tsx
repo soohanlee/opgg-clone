@@ -1,6 +1,6 @@
 import { MostChampion } from "@app/apis/types";
 import ProfileImg from "@app/components/ProfileImg";
-import { getColorFromRatio } from "@app/utils/color";
+import { getColorFromRatio, getWinRateColor } from "@app/utils/color";
 import { kdaCalculator, winRate } from "@app/utils/functions";
 import styled from "styled-components";
 
@@ -10,18 +10,8 @@ interface Props {
 }
 
 const ChampionWinRateComponent = ({ champion, className }: Props) => {
-  const {
-    id,
-    name,
-    imageUrl,
-    games,
-    kills,
-    deaths,
-    assists,
-    wins,
-    losses,
-    cs,
-  } = champion;
+  const { name, imageUrl, games, kills, deaths, assists, wins, losses, cs } =
+    champion;
 
   return (
     <Container className={className}>
@@ -42,13 +32,16 @@ const ChampionWinRateComponent = ({ champion, className }: Props) => {
         <div>
           <Kills>{kills}</Kills>
           {` / `}
-          <Assists>{assists}</Assists>
-          {` / `}
           <Deaths>{deaths}</Deaths>
+          {` / `}
+          <Assists>{assists}</Assists>
         </div>
       </Wrapper>
       <Wrapper space={0}>
-        <WinRate>{`${winRate(wins, losses)}%`}</WinRate>
+        <WinRate color={getWinRateColor(winRate(wins, losses))}>{`${winRate(
+          wins,
+          losses
+        )}%`}</WinRate>
         <TotalGames>{games}게임</TotalGames>
       </Wrapper>
     </Container>

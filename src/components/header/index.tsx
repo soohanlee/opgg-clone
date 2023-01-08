@@ -1,4 +1,4 @@
-import React, { useCallback, RefObject, useRef } from "react";
+import React, { useCallback, RefObject, useRef, useEffect } from "react";
 import useClickOutside from "@app/hooks/useClickOutside";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,9 @@ import { observer } from "mobx-react-lite";
 import RecentSearchComponent from "../RecentSearch";
 
 const Header = observer(() => {
-  recentSearchStore.intitialize();
+  useEffect(() => {
+    recentSearchStore.intitialize();
+  });
 
   const inputRef = useRef<null | HTMLInputElement>(null);
 

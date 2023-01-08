@@ -68,7 +68,7 @@ const Tab = styled.div<{ isActive: boolean }>`
   cursor: pointer;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.darkGray};
-  border-bottom: 0.1rem solid transparent;
+  border-bottom: 0.2rem solid transparent;
   :first-child {
     margin-left: 1.6rem;
   }
@@ -76,14 +76,14 @@ const Tab = styled.div<{ isActive: boolean }>`
   ${({ isActive, theme }) =>
     isActive &&
     css`
-      border-bottom: 0.1rem solid ${theme.colors.skyblue};
+      border-bottom: 0.2rem solid ${theme.colors.skyblue};
       font-weight: bold;
       color: ${theme.colors.skyblue};
     `}
 
   :hover {
     color: ${({ theme }) => theme.colors.white};
-    border-bottom: 0.1rem solid ${({ theme }) => theme.colors.skyblue};
+    border-bottom: 0.2rem solid ${({ theme }) => theme.colors.skyblue};
     font-weight: bold;
     color: ${({ theme }) => theme.colors.skyblue};
   }

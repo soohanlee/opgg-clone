@@ -1,22 +1,21 @@
-import { useMatchesQuery } from "@app/hooks/queries/useMatchesData";
-import React from "react";
-import { useParams } from "react-router-dom";
+import { ErrorBoundary } from "@app/components/ErrorBoundary";
+import React, { Suspense } from "react";
 import styled from "styled-components";
+import MatchStatistics from "./MatchStatistics";
 import TabComponent from "./Tab";
 import { gameType } from "./types";
 
 const Matchs = () => {
-  const params = useParams();
-
-  const { data: matchesData } = useMatchesQuery(params.summonerName!);
-
   const [activeTab, setActiveTab] = React.useState<gameType>("all");
-
-  console.log(matchesData);
 
   return (
     <Container>
       <TabComponent activeTab={activeTab} setActiveTab={setActiveTab} />
+      <ErrorBoundary>
+        <Suspense fallback={"로딩중"}>
+          <MatchStatistics />
+        </Suspense>
+      </ErrorBoundary>
     </Container>
   );
 };
@@ -26,4 +25,5 @@ export default Matchs;
 const Container = styled.div`
   display: flex;
   width: 100%;
+  flex-direction: column;
 `;

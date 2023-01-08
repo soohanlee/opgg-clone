@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import styled from "styled-components";
-
 import SearchUserComponent from "./SearchUserComponent";
 import TabComponent from "./Tab";
 import { searchTab } from "./type";
@@ -14,7 +13,7 @@ import { searchSummonerStore } from "@app/stores/searchSummonerStore";
 const RecentSearchComponent = observer(() => {
   const [activeTab, setActiveTab] = React.useState<searchTab>("recent");
 
-  const getSearchUsers: recentSearchUser[] = recentSearchStore.recentSearches;
+  const getSearchUsers = recentSearchStore.recentSearches;
   const likedUsers = recentSearchStore.likedSearchUsers;
 
   const renderSearchUsers = () => {

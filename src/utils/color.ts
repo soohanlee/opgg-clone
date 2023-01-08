@@ -20,8 +20,8 @@ export const getStatColor = (
   return stat >= threshold ? color : "";
 };
 
-export const getWinRateColor = (kda: number): string => {
-  if (kda >= WIN_RATE_THRESHOLD) {
+export const getWinRateColor = (winRate: number): string => {
+  if (winRate >= WIN_RATE_THRESHOLD) {
     return WIN_RATE_COLOR;
   }
   return "#5e5e5e";
