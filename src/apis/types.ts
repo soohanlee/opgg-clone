@@ -139,6 +139,10 @@ export type SummonerDTO = {
   summoner: Summoner;
 };
 
+export type SummonersDTO = {
+  summoners: Summoner[];
+};
+
 export type TierRank = {
   division: string;
   imageUrl: string;

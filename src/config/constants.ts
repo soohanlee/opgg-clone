@@ -15,6 +15,7 @@ export const testGameId = "123";
 
 export const queryKeys = Object.freeze({
   summoner: "summoner",
+  summoners: "summoners",
   detail: "detail",
   mostInfo: "mostInfo",
   matches: "matches",

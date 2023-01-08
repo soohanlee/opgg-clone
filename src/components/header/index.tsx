@@ -1,51 +1,77 @@
-import React, { useRef, useCallback } from "react";
+import React, { useCallback, RefObject, useRef } from "react";
+import useClickOutside from "@app/hooks/useClickOutside";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { recentSearchStore } from "@app/stores/recentSearchStore";
+import { searchSummonerStore } from "@app/stores/searchSummonerStore";
+import { observer } from "mobx-react-lite";
+import RecentSearchComponent from "../RecentSearch";
 
-const Header = () => {
-  const [input, setInput] = React.useState<string>("");
-  const inputRef = useRef<HTMLInputElement>(null);
+const Header = observer(() => {
+  recentSearchStore.intitialize();
+
+  const inputRef = useRef<null | HTMLInputElement>(null);
 
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setInput(event.target.value);
+      searchSummonerStore.setInput(event.target.value);
     },
     []
   );
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
+      event.preventDefault();
       handleSearchSummoner();
     }
   };
 
-  const handleSearchSummoner = () => {
-    if (!input) return;
-    setInput("");
-    navigate(`/summoners/${input}`);
+  const handleSearchSummoner = (event?: React.MouseEvent<HTMLElement>) => {
+    event?.preventDefault();
+    if (!searchSummonerStore.input) return;
+    recentSearchStore.setRecentSearch({
+      name: searchSummonerStore.input,
+      isLiked: false,
+    });
+    searchSummonerStore.setIsOpen(false);
+    navigate(`/summoners/${searchSummonerStore.input}`);
+    searchSummonerStore.setInput("");
   };
+
+  const handleClickInput = () => {
+    searchSummonerStore.setIsOpen(true);
+  };
+
+  const { ref } = useClickOutside(
+    searchSummonerStore.isOpen,
+    searchSummonerStore.setIsOpen
+  );
 
   return (
     <Container>
       <Nav>
-        <InputContainer>
+        <InputContainer ref={ref as RefObject<HTMLFormElement>}>
           <Input
-            onKeyDown={handleKeyDown}
             ref={inputRef}
+            onKeyDown={handleKeyDown}
             placeholder={t("header.placeholder") || ""}
-            value={input}
+            value={searchSummonerStore.input}
             onChange={handleChange}
+            onClick={handleClickInput}
           />
-          <Button onClick={handleSearchSummoner}>.GG</Button>
+          <Button type="submit" onClick={handleSearchSummoner}>
+            .GG
+          </Button>
+          {searchSummonerStore.isOpen && <RecentSearchComponent />}
         </InputContainer>
       </Nav>
     </Container>
   );
-};
+});
 
 export default Header;
 
@@ -59,7 +85,18 @@ const Nav = styled.div`
   max-width: ${({ theme }) => theme.maxWidth};
 `;
 
-const InputContainer = styled.div`
+const Input = styled.input`
+  width: 100%;
+  height: 100%;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  border: none;
+  &:focus {
+    outline: 0;
+  }
+`;
+
+const InputContainer = styled.form`
+  box-sizing: border-box;
   width: 26rem;
   height: 3.2rem;
   padding: 0.9rem 1.2rem 0.8rem 1.4rem;
@@ -69,16 +106,7 @@ const InputContainer = styled.div`
   align-items: center;
   justify-content: flex-end;
   margin: 0 0 0 auto;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  height: 100%;
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  border: none;
-  :focus {
-    outline: 0;
-  }
+  position: relative;
 `;
 
 const Button = styled.button`

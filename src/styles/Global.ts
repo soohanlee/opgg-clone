@@ -15,6 +15,12 @@ export const GlobalStyle = createGlobalStyle`
   html,body{
     font-size: 62.5%;
     line-height: 1.285;
+    -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   }
 
   main {

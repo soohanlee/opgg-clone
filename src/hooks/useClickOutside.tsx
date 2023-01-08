@@ -1,13 +1,15 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 
-export function useClickOutside() {
+export function useClickOutside(
+  isOpen: boolean,
+  setIsOpen: (value: boolean) => void
+) {
   const ref = useRef<HTMLElement>(null);
   const buttonRef = useRef<HTMLElement>(null);
-  const [isOpen, setIsOpen] = useState(false);
 
   function handleClickOutside(event: MouseEvent) {
     if (buttonRef.current && buttonRef.current.contains(event.target as Node)) {
-      setIsOpen((pre) => !pre);
+      setIsOpen(!isOpen);
       return;
     }
     if (ref.current && !ref.current.contains(event.target as Node)) {
@@ -22,7 +24,7 @@ export function useClickOutside() {
     };
   });
 
-  return { ref, buttonRef, isOpen, setIsOpen };
+  return { ref, buttonRef };
 }
 
 export default useClickOutside;
