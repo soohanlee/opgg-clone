@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Summoner } from "@app/apis/types";
 import { recentSearchStore } from "@app/stores/recentSearchStore";
-import { searchSummonerStore } from "@app/stores/searchSummonerStore";
 import { getTierInfo } from "@app/utils/functions";
 import styled from "styled-components";
 import OriginProfileImg from "../ProfileImg";
@@ -13,7 +12,7 @@ interface Props {
 const UserComponent = ({ summoner }: Props) => {
   const handleClickUser = () => {
     recentSearchStore.setRecentSearch({ name: summoner.name, isLiked: false });
-    searchSummonerStore.initialize();
+    recentSearchStore.initializeModal();
   };
 
   return (

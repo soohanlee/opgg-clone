@@ -1,9 +1,11 @@
 import { Summary } from "@app/apis/types";
-import { kdaCalculator, totalGame, winRate } from "@app/utils/functions";
+import { totalGame, winRate } from "@app/utils/functions";
 import styled from "styled-components";
 import { PieChart, Pie, Label } from "recharts";
 import { theme } from "@app/styles/Theme";
-import { getColorFromRatio, getWinRateColor } from "@app/utils/color";
+import OriginKDAComponent from "../../components/KDAComponent";
+import OriginOnlyWinRatingNumber from "../../components/OnlyWinRatingNumber";
+import OriginWinRateComponent from "../../components/WinRateComponent";
 
 interface Props {
   summary: Summary;
@@ -46,24 +48,21 @@ const Stats = ({ summary }: Props) => {
         </PieChartContainer>
 
         <Wrapper>
-          <Kills>{kills}</Kills>
-          {` / `}
-          <Deaths>{deaths}</Deaths>
-          {` / `}
-          <Assists>{assists}</Assists>
+          <KDAComponent
+            kills={kills}
+            deaths={deaths}
+            assists={assists}
+            isRedPoint
+          />
 
           <TextConatiner>
-            <KDA
-              color={getColorFromRatio(
-                Number(kdaCalculator(kills, assists, deaths))
-              )}
-            >
-              {kdaCalculator(kills, assists, deaths)}:1
-            </KDA>
-
-            <WinRate
-              color={getWinRateColor(winRate(wins, losses))}
-            >{`(${winRate(wins, losses)}%)`}</WinRate>
+            <WinRateComponent
+              kills={kills}
+              deaths={deaths}
+              assists={assists}
+              isOne
+            />
+            <OnlyWinRatingNumber wins={wins} losses={losses} withBracket />
           </TextConatiner>
         </Wrapper>
       </InnerContainer>
@@ -89,8 +88,15 @@ const GameResult = styled.div`
   width: max-content;
 `;
 
+const KDAComponent = styled(OriginKDAComponent)`
+  span {
+    font-weight: bold;
+  }
+`;
+
 const PieChartContainer = styled.div`
   position: relative;
+  pointer-events: none;
 `;
 
 const InnerContainer = styled.div`
@@ -108,30 +114,14 @@ const Wrapper = styled.div`
 const TextConatiner = styled.div`
   display: flex;
   margin-top: 0.6rem;
+  align-items: center;
 `;
 
-const KDAText = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  color: ${({ theme }) => theme.colors.lightGray};
-`;
-
-const KDA = styled.div<{ color?: string }>`
+const WinRateComponent = styled(OriginWinRateComponent)`
   font-size: ${({ theme }) => theme.fontSizes.lg};
-  font-weight: bold;
-  color: ${({ theme, color }) => (color ? color : theme.colors.darkGray)};
-  margin-right: ${({ theme }) => theme.spacing.xs};
+  margin-right: 0.4rem;
 `;
 
-const Kills = styled(KDAText)``;
-
-const Deaths = styled(KDAText)`
-  color: ${({ theme }) => theme.colors.brightRed};
-`;
-
-const Assists = styled(KDAText)``;
-
-const WinRate = styled.div<{ color?: string }>`
+const OnlyWinRatingNumber = styled(OriginOnlyWinRatingNumber)`
   font-size: ${({ theme }) => theme.fontSizes.lg};
-  color: ${({ color, theme }) => (color ? color : theme.colors.darkGray)};
-  font-weight: bold;
 `;

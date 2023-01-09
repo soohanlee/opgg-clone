@@ -29,6 +29,7 @@ const ImgContainer = styled.div`
   width: 6.4rem;
   height: 6.4rem;
   margin-right: 2.4rem;
+  margin-left: 2rem;
 `;
 
 const UnrankedImg = styled.div`

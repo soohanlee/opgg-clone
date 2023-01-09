@@ -1,9 +1,6 @@
 import { MostInfoDTO } from "@app/apis/types";
-import {
-  sortChampionGamesCount,
-  sortMostChampionsGames,
-} from "@app/utils/functions";
-import React, { useState } from "react";
+import { sortByGames, sortChampionGamesCount } from "@app/utils/functions";
+import { useState } from "react";
 import styled from "styled-components";
 import OriginChampionWinRateComponent from "./ChampionWinRateComponent";
 import ChampionWinRateTab from "./ChampionWinRateTab";
@@ -20,7 +17,7 @@ const ComponentWrap = ({ champions, recentWinRate, defaultTab }: Props) => {
   const [activeTab, setActiveTab] = useState<championSelectedType>(defaultTab);
 
   const renderChampionWinRates = () => {
-    return sortMostChampionsGames(champions!)
+    return sortByGames(champions!, "desc")
       .slice(0, 7)
       .map((champion, index) => {
         return (

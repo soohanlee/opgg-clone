@@ -161,9 +161,11 @@ export type Ward = {
   visionWardsBought: number;
 };
 
+export type matchesChampions = Omit<MostChampion, "cs" | "rank">;
+
 export type MatchesDTO = {
   games: GameInfo[];
-  champions: Champion[];
+  champions: matchesChampions[];
   positions: Position[];
   summary: Summary;
 };

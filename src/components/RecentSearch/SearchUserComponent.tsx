@@ -32,6 +32,7 @@ const SearchUserComponent = ({ name, isLiked, isLikedComponent }: Props) => {
 
   const handleClickUser = () => {
     navigate(`/summoners/${name}`);
+    recentSearchStore.initializeModal();
   };
 
   return (

@@ -1,6 +1,5 @@
 import { Summoner } from "@app/apis/types";
 import { formatNumber } from "@app/utils/functions";
-import React from "react";
 import styled from "styled-components";
 import TierList from "./TierList";
 
@@ -14,7 +13,6 @@ const ContentHeader = ({ summoner }: Props) => {
     ladderRank,
     level,
     previousTiers,
-    profileBackgroundImageUrl,
     profileBorderImageUrl,
     profileImageUrl,
   } = summoner;
@@ -24,7 +22,6 @@ const ContentHeader = ({ summoner }: Props) => {
         <TierList previousTiers={previousTiers} />
         <UserContainer>
           <ImgContainer>
-            {/* FIXME 이미지 수정 해야함 시간 지체 해서 일단 패스 */}
             <ProfileImageContainer img={profileBorderImageUrl}>
               <ImgCenter>
                 <ProfileImage src={profileImageUrl} />
@@ -73,32 +70,23 @@ const ImgContainer = styled.div`
 `;
 
 const LevelContainer = styled.div`
-  top: 0;
-  width: 24px;
-  height: 40.5px;
-  background-color: #1f8ecd;
+  left: 50%;
+  bottom: 0;
+  width: 4.4rem;
+  height: 2.4rem;
+  background-color: #2c3548;
   position: absolute;
-  transform: rotate(90deg);
-
-  &:before,
-  &:after {
-    content: "";
-    position: absolute;
-    width: 0;
-    border-left: 1.2rem solid transparent;
-    border-right: 1.2rem solid transparent;
-  }
-
-  &:before {
-    bottom: 100%;
-    border-bottom: 0.8rem solid #1f8ecd;
-  }
-
-  &:after {
-    top: 100%;
-    width: 0;
-    border-top: 0.8rem solid #1f8ecd;
-  }
+  text-align: center;
+  line-height: 2rem;
+  color: #eabd56;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  transform: translate(-50%, 0);
+  border: 0.15rem solid transparent;
+  background-image: linear-gradient(#2c3548, #2c3548),
+    linear-gradient(to bottom, #f6e08f 0%, #ca9a2c 99%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  border-image-slice: 1;
 `;
 
 const NameContainer = styled.div`

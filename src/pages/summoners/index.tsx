@@ -1,7 +1,8 @@
 import { SummonerDTO } from "@app/apis/types";
 import { ErrorBoundary } from "@app/components/ErrorBoundary";
-import { Suspense } from "react";
-import { useLoaderData } from "react-router-dom";
+import { documentTitle } from "@app/config/constants";
+import { Suspense, useEffect } from "react";
+import { useLoaderData, useParams } from "react-router-dom";
 import styled from "styled-components";
 import ChampionWinRate from "./ChampionWinRate";
 import ContentHeader from "./ContentHeader";
@@ -10,6 +11,16 @@ import Rank from "./Rank";
 
 const Summoners = () => {
   const { summoner } = useLoaderData() as SummonerDTO;
+
+  const param = useParams();
+
+  useEffect(() => {
+    if (param && param.summonerName) {
+      document.title = param.summonerName;
+    } else {
+      document.title = documentTitle;
+    }
+  });
 
   return (
     <Container>

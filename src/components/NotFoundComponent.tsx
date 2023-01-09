@@ -1,7 +1,12 @@
-import React from "react";
+import { documentTitle } from "@app/config/constants";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const NotFoundComponent = () => {
+  useEffect(() => {
+    document.title = documentTitle;
+  });
+
   return (
     <Container>
       <Title>

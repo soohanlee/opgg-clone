@@ -4,13 +4,12 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { recentSearchStore } from "@app/stores/recentSearchStore";
-import { searchSummonerStore } from "@app/stores/searchSummonerStore";
 import { observer } from "mobx-react-lite";
 import RecentSearchComponent from "../RecentSearch";
 
 const Header = observer(() => {
   useEffect(() => {
-    recentSearchStore.intitialize();
+    recentSearchStore.intitializeData();
   });
 
   const inputRef = useRef<null | HTMLInputElement>(null);
@@ -20,7 +19,7 @@ const Header = observer(() => {
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      searchSummonerStore.setInput(event.target.value);
+      recentSearchStore.setInput(event.target.value);
     },
     []
   );
@@ -34,23 +33,23 @@ const Header = observer(() => {
 
   const handleSearchSummoner = (event?: React.MouseEvent<HTMLElement>) => {
     event?.preventDefault();
-    if (!searchSummonerStore.input) return;
+    if (!recentSearchStore.input) return;
     recentSearchStore.setRecentSearch({
-      name: searchSummonerStore.input,
+      name: recentSearchStore.input,
       isLiked: false,
     });
-    searchSummonerStore.setIsOpen(false);
-    navigate(`/summoners/${searchSummonerStore.input}`);
-    searchSummonerStore.setInput("");
+    recentSearchStore.setIsOpen(false);
+    navigate(`/summoners/${recentSearchStore.input}`);
+    recentSearchStore.setInput("");
   };
 
   const handleClickInput = () => {
-    searchSummonerStore.setIsOpen(true);
+    recentSearchStore.setIsOpen(true);
   };
 
   const { ref } = useClickOutside(
-    searchSummonerStore.isOpen,
-    searchSummonerStore.setIsOpen
+    recentSearchStore.isOpen,
+    recentSearchStore.setIsOpen
   );
 
   return (
@@ -61,14 +60,14 @@ const Header = observer(() => {
             ref={inputRef}
             onKeyDown={handleKeyDown}
             placeholder={t("header.placeholder") || ""}
-            value={searchSummonerStore.input}
+            value={recentSearchStore.input}
             onChange={handleChange}
             onClick={handleClickInput}
           />
           <Button type="submit" onClick={handleSearchSummoner}>
             .GG
           </Button>
-          {searchSummonerStore.isOpen && <RecentSearchComponent />}
+          {recentSearchStore.isOpen && <RecentSearchComponent />}
         </InputContainer>
       </Nav>
     </Container>

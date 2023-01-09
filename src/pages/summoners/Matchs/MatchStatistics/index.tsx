@@ -1,20 +1,19 @@
 import styled from "styled-components";
-import { useMatchesQuery } from "@app/hooks/queries/useMatchesData";
-import { useParams } from "react-router-dom";
 import Stats from "./Stats";
 import Champions from "./Champions";
 import Positions from "./Positions";
+import { MatchesDTO } from "@app/apis/types";
 
-const MatchStatistics = () => {
-  const params = useParams();
+interface Props {
+  matchesData: MatchesDTO;
+}
 
-  const { data: matchesData } = useMatchesQuery(params.summonerName!);
-  console.log(matchesData);
+const MatchStatistics = ({ matchesData }: Props) => {
   return (
     <Container>
       <Stats summary={matchesData!.summary} />
-      <Champions />
-      <Positions />
+      <Champions champions={matchesData!.champions} />
+      <Positions positions={matchesData!.positions} />
     </Container>
   );
 };
@@ -26,6 +25,7 @@ const Container = styled.div`
   border: 0.1rem solid ${({ theme }) => theme.colors.silver};
   border-top: 0;
   display: flex;
+  margin-bottom: ${({ theme }) => theme.spacing.xl};
   > div {
     :nth-child(1) {
       width: 40%;

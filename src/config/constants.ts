@@ -20,3 +20,7 @@ export const queryKeys = Object.freeze({
   mostInfo: "mostInfo",
   matches: "matches",
 });
+
+export const documentTitle = "롤 전적 검색 OP.GG";
+
+export const positionOrder = ["TOP", "JNG", "MID", "ADC", "SUP"];

@@ -11,15 +11,32 @@ const likedSearchKey = "likedSearch";
 class RecentSearch {
   recentSearches: recentSearchUser[] = [];
   likedSearchUsers: recentSearchUser[] = [];
+  isOpen: boolean;
+  input: string;
 
   constructor() {
     this.recentSearches = [];
     this.likedSearchUsers = [];
+    this.isOpen = false;
+    this.input = "";
 
     makeAutoObservable(this);
   }
 
-  intitialize = () => {
+  initializeModal = () => {
+    this.isOpen = false;
+    this.input = "";
+  };
+
+  setIsOpen = (isOpen: boolean) => {
+    this.isOpen = isOpen;
+  };
+
+  setInput = (input: string) => {
+    this.input = input;
+  };
+
+  intitializeData = () => {
     this.recentSearches = this.getRecentSearch();
     this.likedSearchUsers = this.getLikedSearch();
   };

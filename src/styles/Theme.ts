@@ -12,6 +12,7 @@ export const theme = Object.freeze({
     emerald: "#2daf7f",
     golden: "#e19205",
     brightRed: "#ee5a52",
+    rustRed: "#c6443e",
   },
   fonts: {
     fontFamily: "opgg",
@@ -33,3 +34,5 @@ export const theme = Object.freeze({
   },
   maxWidth: "108rem",
 });
+
+export type TfontSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";

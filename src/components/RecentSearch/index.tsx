@@ -8,7 +8,6 @@ import { observer } from "mobx-react-lite";
 import { recentSearchStore } from "@app/stores/recentSearchStore";
 import CurrentSearch from "../CurrentSearch";
 import { ErrorBoundary } from "../ErrorBoundary";
-import { searchSummonerStore } from "@app/stores/searchSummonerStore";
 
 const RecentSearchComponent = observer(() => {
   const [activeTab, setActiveTab] = React.useState<searchTab>("recent");
@@ -62,12 +61,12 @@ const RecentSearchComponent = observer(() => {
     }
   };
 
-  if (searchSummonerStore.input.length > 0) {
+  if (recentSearchStore.input.length > 0) {
     return (
       <Container>
         <ErrorBoundary>
           <Suspense fallback={<div>로딩중</div>}>
-            <CurrentSearch input={searchSummonerStore.input} />
+            <CurrentSearch input={recentSearchStore.input} />
           </Suspense>
         </ErrorBoundary>
       </Container>

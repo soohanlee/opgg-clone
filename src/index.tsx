@@ -14,6 +14,7 @@ import Summoners from "@app/pages/summoners";
 import { GlobalStyle } from "@app/styles/Global";
 import { useSummonerLoader } from "@app/hooks/queries/useLoader";
 import NotFoundComponent from "./components/NotFoundComponent";
+import Root from "./pages/Root";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        index: true,
+        element: <Root />,
+      },
       {
         errorElement: <NotFoundComponent />,
         children: [
