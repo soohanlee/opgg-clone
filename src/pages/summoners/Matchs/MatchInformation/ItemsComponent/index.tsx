@@ -38,7 +38,6 @@ const ItemsComponent = ({
 
     return changeArrayOrder<ImageObj>(newItems, index, 3).map((item, index) => {
       if (item.imageUrl === "") {
-        console.log("여기");
         return <ImgContainer isWin={isWin} needRenew={needRenew} />;
       } else {
         return (
