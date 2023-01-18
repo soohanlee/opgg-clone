@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import styled from "styled-components";
 import SearchUserComponent from "./SearchUserComponent";
 import TabComponent from "./Tab";
@@ -6,8 +6,6 @@ import { searchTab } from "./type";
 import { recentSearchUser } from "@app/stores/recentSearchStore";
 import { observer } from "mobx-react-lite";
 import { recentSearchStore } from "@app/stores/recentSearchStore";
-import CurrentSearch from "../CurrentSearch";
-import { ErrorBoundary } from "../ErrorBoundary";
 
 const RecentSearchComponent = observer(() => {
   const [activeTab, setActiveTab] = React.useState<searchTab>("recent");
@@ -61,24 +59,12 @@ const RecentSearchComponent = observer(() => {
     }
   };
 
-  if (recentSearchStore.input.length > 0) {
-    return (
-      <Container>
-        <ErrorBoundary>
-          <Suspense fallback={<div>로딩중</div>}>
-            <CurrentSearch input={recentSearchStore.input} />
-          </Suspense>
-        </ErrorBoundary>
-      </Container>
-    );
-  } else {
-    return (
-      <Container>
-        <TabComponent activeTab={activeTab} setActiveTab={setActiveTab} />
-        {renderSwitchComponent()}
-      </Container>
-    );
-  }
+  return (
+    <Container>
+      <TabComponent activeTab={activeTab} setActiveTab={setActiveTab} />
+      {renderSwitchComponent()}
+    </Container>
+  );
 });
 
 export default RecentSearchComponent;

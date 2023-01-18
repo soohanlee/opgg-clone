@@ -4,19 +4,26 @@ import { recentSearchStore } from "@app/stores/recentSearchStore";
 import { getTierInfo } from "@app/utils/functions";
 import styled from "styled-components";
 import OriginProfileImg from "../ProfileImg";
+import { autoCompleteStore } from "@app/stores/autoCompleteStore";
 
 interface Props {
   summoner: Summoner;
+  isActive: boolean;
 }
 
-const UserComponent = ({ summoner }: Props) => {
+const UserComponent = ({ summoner, isActive }: Props) => {
   const handleClickUser = () => {
     recentSearchStore.setRecentSearch({ name: summoner.name, isLiked: false });
     recentSearchStore.initializeModal();
+    autoCompleteStore.setInput("");
   };
 
   return (
-    <Container to={`/summoners/${summoner.name}`} onClick={handleClickUser}>
+    <Container
+      isActive={isActive}
+      to={`/summoners/${summoner.name}`}
+      onClick={handleClickUser}
+    >
       <ProfileImg img={summoner.profileImageUrl} width={36} />
       <InfoContainer>
         <Name>{summoner.name}</Name>
@@ -33,7 +40,7 @@ const UserComponent = ({ summoner }: Props) => {
 
 export default UserComponent;
 
-const Container = styled(Link)`
+const Container = styled(Link)<{ isActive: boolean }>`
   display: flex;
   align-items: center;
   padding: 0.6rem 1.6rem;
@@ -42,6 +49,8 @@ const Container = styled(Link)`
   :active {
     background-color: ${({ theme }) => theme.colors.offWhite};
   }
+  ${({ isActive, theme }) =>
+    isActive && `background-color: ${theme.colors.offWhite}`}
 `;
 
 const ProfileImg = styled(OriginProfileImg)`

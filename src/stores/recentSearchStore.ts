@@ -12,31 +12,24 @@ class RecentSearch {
   recentSearches: recentSearchUser[] = [];
   likedSearchUsers: recentSearchUser[] = [];
   isOpen: boolean;
-  input: string;
 
   constructor() {
     this.recentSearches = [];
     this.likedSearchUsers = [];
     this.isOpen = false;
-    this.input = "";
 
     makeAutoObservable(this);
   }
 
   initializeModal = () => {
     this.isOpen = false;
-    this.input = "";
   };
 
   setIsOpen = (isOpen: boolean) => {
     this.isOpen = isOpen;
   };
 
-  setInput = (input: string) => {
-    this.input = input;
-  };
-
-  intitializeData = () => {
+  initializedData = () => {
     this.recentSearches = this.getRecentSearch();
     this.likedSearchUsers = this.getLikedSearch();
   };

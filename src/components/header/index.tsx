@@ -1,16 +1,25 @@
-import React, { useCallback, RefObject, useRef, useEffect } from "react";
+import React, {
+  useCallback,
+  RefObject,
+  useRef,
+  useEffect,
+  Suspense,
+} from "react";
 import useClickOutside from "@app/hooks/useClickOutside";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { recentSearchStore } from "@app/stores/recentSearchStore";
+import { autoCompleteStore } from "@app/stores/autoCompleteStore";
 import { observer } from "mobx-react-lite";
 import RecentSearchComponent from "../RecentSearch";
+import CurrentSearch from "../CurrentSearch";
 
 const Header = observer(() => {
   useEffect(() => {
-    recentSearchStore.intitializeData();
-  });
+    recentSearchStore.initializedData();
+    autoCompleteStore.initializedData();
+  }, []);
 
   const inputRef = useRef<null | HTMLInputElement>(null);
 
@@ -19,38 +28,62 @@ const Header = observer(() => {
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      recentSearchStore.setInput(event.target.value);
+      autoCompleteStore.setInput(event.target.value);
     },
     []
   );
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      event.preventDefault();
+      autoCompleteStore.setInput(
+        autoCompleteStore.filteredUsers[autoCompleteStore.activeIndex].name
+      );
       handleSearchSummoner();
+    } else if (event.key === "ArrowDown") {
+      if (
+        autoCompleteStore.activeIndex - 1 ===
+        autoCompleteStore.filteredUsers.length
+      ) {
+        return null;
+      } else
+        autoCompleteStore.setActiveIndex(autoCompleteStore.activeIndex + 1);
+      return;
+    } else if (event.key === "ArrowUp") {
+      if (autoCompleteStore.activeIndex === 0) {
+        return null;
+      } else
+        autoCompleteStore.setActiveIndex(autoCompleteStore.activeIndex - 1);
+      return;
     }
   };
 
   const handleSearchSummoner = (event?: React.MouseEvent<HTMLElement>) => {
     event?.preventDefault();
-    if (!recentSearchStore.input) return;
+    if (!autoCompleteStore.input) return;
     recentSearchStore.setRecentSearch({
-      name: recentSearchStore.input,
+      name: autoCompleteStore.input,
       isLiked: false,
     });
     recentSearchStore.setIsOpen(false);
-    navigate(`/summoners/${recentSearchStore.input}`);
-    recentSearchStore.setInput("");
+    navigate(`/summoners/${autoCompleteStore.input}`);
+    autoCompleteStore.setInput("");
   };
 
   const handleClickInput = () => {
     recentSearchStore.setIsOpen(true);
+    autoCompleteStore.setActiveIndex(0);
   };
 
   const { ref } = useClickOutside(
     recentSearchStore.isOpen,
     recentSearchStore.setIsOpen
   );
+
+  const isRecentSearchOpen =
+    recentSearchStore.isOpen && autoCompleteStore.input.length === 0;
+
+  const isAutoCompleteOpen =
+    recentSearchStore.isOpen && autoCompleteStore.input.length > 0;
 
   return (
     <Container>
@@ -60,14 +93,19 @@ const Header = observer(() => {
             ref={inputRef}
             onKeyDown={handleKeyDown}
             placeholder={t("header.placeholder") || ""}
-            value={recentSearchStore.input}
+            value={autoCompleteStore.input}
             onChange={handleChange}
             onClick={handleClickInput}
           />
           <Button type="submit" onClick={handleSearchSummoner}>
             .GG
           </Button>
-          {recentSearchStore.isOpen && <RecentSearchComponent />}
+          {isRecentSearchOpen && <RecentSearchComponent />}
+          {isAutoCompleteOpen && (
+            <Suspense fallback={"로딩중"}>
+              <CurrentSearch />
+            </Suspense>
+          )}
         </InputContainer>
       </Nav>
     </Container>
